@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\KyniemModel;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \JWTAuth;
 
 class Kyniem extends Controller {
 
@@ -26,8 +28,15 @@ class Kyniem extends Controller {
         return response()->json($data);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getToken(Request $request) {
-        return response()->json(['token' => $request->session()->token()]);
+        $user = User::first();
+        $token = JWTAuth::fromUser($user);
+        return response()->json(['token'=>$token]);
     }
 
     /**
@@ -48,9 +57,14 @@ class Kyniem extends Controller {
      */
     public function store(Request $request) {
         $kn                 = new KyniemModel();
-        $kn->kyniem_title   = $request->kyniem_title;
+
+        $kn->kyniem_title   = isset($request->kyniem_title)?$request->kyniem_title:'';
         $kn->kyniem_content = $request->kyniem_content;
         $kn->save();
+
+        if(isset($request->prev_link)){
+            return redirect($request->prev_link);
+        }
     }
 
     /**

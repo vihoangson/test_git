@@ -84,10 +84,12 @@ Happy Family
             <div class="message-item " id="m" data-step="">
                 <div class="message-inner">
                     <div class="">
-                        <form action="/homepage/add_new" id="add_new" method="POST" role="form" enctype="multipart/form-data">
+                        <form action="/api/kyniem" id="add_new" method="POST" role="form" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name='prev_link' value="/">
                             <div class="form-group">
                                 <label for="">Hôm nay gia đình mình có gì ? (<span style="color:red;">*</span>)</label>
-                                <textarea data-time="1503797571" name="content" id="content" class="form-control" style="height:50px;" required=""></textarea>
+                                <textarea data-time="1503797571" name="kyniem_content" id="content" class="form-control" style="height:50px;" required=""></textarea>
                             </div>
                             <div class="clearfix"></div>
                             <div class="icon_box" style="padding: 10px; display: none; ">
