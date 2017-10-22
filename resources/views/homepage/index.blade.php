@@ -1,7 +1,7 @@
 @extends('layout.sample')
 {{--@yield('title','asldkfjsal;dkfj')--}}
 @section('page-title')
-ádflkasjdflksj
+Happy Family
 @endsection
 @section('page-content')
     <div class="container">
@@ -258,7 +258,7 @@
             <h3>Tags</h3>
             <span><a href='/homepage/tags/CoTu'> #CoTu </a></span><span><a href='/homepage/tags/DuLich'> #DuLich </a></span><span><a href='/homepage/tags/MonNgonMeNau'> #MonNgonMeNau </a></span><span><a href='/homepage/tags/BaiTho'> #BaiTho </a></span><span><a href='/homepage/tags/MonAn'> #MonAn </a></span><span><a href='/homepage/tags/KyNiem'> #KyNiem </a></span><span><a href='/homepage/tags/BaCo'> #BaCo </a></span><span><a href='/homepage/tags/BiBenh'> #BiBenh </a></span><span><a href='/homepage/tags/MocRang'> #MocRang </a></span><span><a href='/homepage/tags/Rang'> #Rang </a></span><span><a href='/homepage/tags/KhongChiuAn'> #KhongChiuAn </a></span><span><a href='/homepage/tags/BiBong'> #BiBong </a></span><span><a href='/homepage/tags/TieuChay'> #TieuChay </a></span><span><a href='/homepage/tags/AnBangMuong'> #AnBangMuong </a></span>
         </div>
-
+        @include('homepage.includes.ele_kyniem');
         <script>
             $(document).ready(function(){
                 loadKyniem();
@@ -273,8 +273,20 @@
             $(".loadmore").click(function (event) {
                 loadKyniem();
             });
-
+            var page_current = 0;
             var loadKyniem = function () {
+                $.get('/api/kyniem',{'step' : page_current},function(equal){
+                    page_current = page_current + 10;
+                    $.each(equal,function(k,v){
+                        var m = $("#sample-message-item").clone();
+                        m.find(".content_main_block").html(v.kyniem_content);
+                        m.find(".handle").html(v.kyniem_title);
+                        m.removeClass('hidden');
+                        m.appendTo('#wallmessages');
+                    })
+                });
+
+                return ;
                 var step = $(".message-item").last().data("step") + 1;
                 if ($(".fa-spin").length == 0) {
                     $("#wallmessages").append('<div class="text-center"><i style="color:#828282;" class="fa fa-refresh fa-spin fa-3x"></i></div>');

@@ -1,4 +1,4 @@
-<div class="message-item " id="m0" data-step="0">
+<div class="message-item hidden" id="sample-message-item" data-step="0">
     <div class="options_icon"><span></span>
         <ul>
             <li>
@@ -18,7 +18,7 @@
                 <a href="#"><img src="/asset/images/BoSon1.jpg"></a>
             </div>
             <div class="user-detail">
-                <h5 class="handle">{{$d->kyniem_title}}</h5>
+                <h5 class="handle"></h5>
                 <div class="post-meta">
                     <div class="asker-meta">
                         <span class="qa-message-what"></span>
@@ -31,7 +31,7 @@
         <div class="qa-message-content">
             <div class="content_main_block">
                 {{--layout.article_content--}}
-                {{$d->kyniem_content}}
+
             </div>
             <div class="box-comment">
                 <div class="row-tail">

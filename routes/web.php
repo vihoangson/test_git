@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'Homepage@index');
+Route::get('api/kyniem/gettoken', 'api\Kyniem@getToken');
 Route::resource('api/kyniem', 'api\Kyniem');
 
 // Route::get('/', function () {
