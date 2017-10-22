@@ -5,9 +5,6 @@
 @endsection
 @section('page-content')
     <div class="container">
-
-
-
         <nav class="navbar navbar-default" role="navigation">
 
             <div class="navbar-header">
@@ -130,57 +127,7 @@
                     </div>
                 </div>
             </div>
-            <div class="message-item " id="m0" data-step="0">
-                <div class="options_icon"><span></span>
-                    <ul>
-                        <li>
-                            <a href="http://family.vihoangson.com/homepage/edit_new/79d96548340611ba766de3552312dd17/445">Edit</a>
-                        </li>
-                        <li>
-                            <a href="http://family.vihoangson.com/homepage/dont_show_on_timeline/79d96548340611ba766de3552312dd17/445">Down show on time line</a>
-                        </li>
-                        <li>
-                            <a class="delete_b" href="http://family.vihoangson.com/homepage/delete_kyniem/79d96548340611ba766de3552312dd17/445">Delete</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="message-inner">
-                    <div class="message-head clearfix">
-                        <div class="avatar pull-left">
-                            <a href="#"><img src="/asset/images/BoSon1.jpg"></a>
-                        </div>
-                        <div class="user-detail">
-                            <h5 class="handle">{{--layout.article_title--}}</h5>
-                            <div class="post-meta">
-                                <div class="asker-meta">
-                                    <span class="qa-message-what"></span>
-                                    <span class="qa-message-when"><span class="qa-message-when-data">21-10-2017 11:34:09</span></span>
-                                    <span class="qa-message-who"><span class="qa-message-who-pad">by </span><span class="qa-message-who-data"><a href="#">Bố Sơn</a></span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="qa-message-content">
-                        <div class="content_main_block">
-                            {{--layout.article_content--}}
-                        </div>
-                        <div class="box-comment">
-                            <div class="row-tail">
-                                <div class="input-c">
-                                    <input class='input-comment' data-id="445" placeholder="Write comment ...">
-                                    <a href="javascript:void(0)" class="smile-button"><i class="fa fa-smile-o"></i></a>
-                                </div>
-                                <div class="button-c">
-                                    <button class="btn btn-primary btn-block send-button">Send</button>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <ul>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="content-ajax"></div>
         </div>
         <div class="text-center">
             <button type="button" class="btn btn-default loadmore">Load more »</button>
@@ -313,6 +260,9 @@
         </div>
 
         <script>
+            $(document).ready(function(){
+                loadKyniem();
+            })
 
             $(window).scroll(function () {
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -328,7 +278,7 @@
                 var step = $(".message-item").last().data("step") + 1;
                 if ($(".fa-spin").length == 0) {
                     $("#wallmessages").append('<div class="text-center"><i style="color:#828282;" class="fa fa-refresh fa-spin fa-3x"></i></div>');
-                    $.get('/homepage/ajax_autoload/' + step, function (data) {
+                    $.post('/api/kyniem/?step=' + step, function (data) {
                         $(".fa-spin").remove();
                         if (data) {
                             $("#wallmessages").append(data);

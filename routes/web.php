@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'Homepage@index');
+Route::resource('api/kyniem', 'api\Kyniem');
 
-Route::get('/', function () {
-    return view('homepage/index');
-});
+// Route::get('/', function () {
+//     return view('homepage/index');
+// });
